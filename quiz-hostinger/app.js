@@ -29,14 +29,13 @@ const optionGroups = Array.from(document.querySelectorAll('.options'));
 const primaryGroup = optionGroups[0] || null;
 const primaryButtons = primaryGroup ? Array.from(primaryGroup.querySelectorAll('.option-theme')) : [];
 const cta = document.getElementById('cta');
-const toast = document.getElementById('toast');
 
 // Restaura seleção anterior (se existir)
 if (answers.q1 && primaryButtons.length) {
   const selected = primaryButtons.find(btn => btn.dataset.value === answers.q1);
   if (selected) {
     toggleActive(primaryButtons, selected);
-    applyPrimarySelection(selected, { silent: true });
+    applyPrimarySelection(selected);
   }
 }
 
@@ -93,13 +92,11 @@ function toggleActive(buttons, activeButton) {
   if (radio) radio.checked = true;
 }
 
-function applyPrimarySelection(btn, { silent = false } = {}) {
+function applyPrimarySelection(btn) {
   cta.disabled = false;
 
   answers.q1 = btn.dataset.value;
   localStorage.setItem(stateKey, JSON.stringify(answers));
-
-  if (!silent) announce('Opción seleccionada.');
 }
 
 // CTA
@@ -107,14 +104,9 @@ cta.addEventListener('click', () => {
   if (cta.disabled) return;
   // já está salvo pelo setSelected; reforça persistência
   localStorage.setItem(stateKey, JSON.stringify(answers));
-  announce('Respuesta guardada. Continuaremos en la Parte 2.');
 });
 
 // Toast util
-let toastTimer;
-function announce(msg) {
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+function announce() {
+  // desabilitado
 }
