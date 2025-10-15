@@ -93,20 +93,44 @@ function toggleActive(buttons, activeButton) {
 }
 
 function applyPrimarySelection(btn) {
-  cta.disabled = false;
+  if (cta) {
+    cta.disabled = false;
+  }
 
   answers.q1 = btn.dataset.value;
   localStorage.setItem(stateKey, JSON.stringify(answers));
 }
 
 // CTA
-cta.addEventListener('click', () => {
-  if (cta.disabled) return;
-  // já está salvo pelo setSelected; reforça persistência
-  localStorage.setItem(stateKey, JSON.stringify(answers));
-});
+if (cta) {
+  cta.addEventListener('click', () => {
+    if (cta.disabled) return;
+    // já está salvo pelo setSelected; reforça persistência
+    localStorage.setItem(stateKey, JSON.stringify(answers));
+  });
+}
 
 // Toast util
 function announce() {
   // desabilitado
 }
+
+(function () {
+  const nextCta =
+    document.getElementById('cta') ||
+    document.getElementById('next-btn') ||
+    document.querySelector('button[data-role="cta"]') ||
+    Array.from(document.querySelectorAll('button, a'))
+      .find(el => (el.textContent || '').trim().toLowerCase() === 'deseo la receta');
+
+  if (nextCta && !/parte2\.html$/i.test(location.pathname)) {
+    nextCta.addEventListener('click', function (e) {
+      if (nextCta.tagName !== 'A') {
+        e.preventDefault();
+        const hasSelection = document.querySelector('.option-theme.active, input[type="radio"]:checked');
+        if (!hasSelection) return;
+        window.location.href = '/parte2.html';
+      }
+    }, { once: true });
+  }
+})();

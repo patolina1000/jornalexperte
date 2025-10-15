@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz – Parte 2</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="bg-[#f6f8f4] text-[#1a1a1a]">
+  <main class="mx-auto max-w-[520px] p-4">
+    <!-- barra de progresso (opcional) -->
+    <div class="h-2 w-full bg-[#e9f3df] rounded-full overflow-hidden mb-3">
+      <div class="h-full w-1/2 bg-[#94c26a]"></div>
+    </div>
+
+    <!-- HERO (usar imagem existente) -->
+    <img src="/assets/hero_2.png" alt="Hero 2" class="w-full rounded-md mb-3">
+
+    <!-- pre-headline -->
+    <p class="text-[15px] leading-[22px] text-[#222] mb-1">
+      Esto explica por qué <span class="text-[#c63a2f] font-semibold">NO adelgazas</span> incluso comiendo poco.
+    </p>
+
+    <!-- pergunta -->
+    <h2 class="text-[17px] leading-[22px] md:text-[20px] md:leading-[28px] font-semibold mb-3">
+      ¿Te identificas con esto?
+    </h2>
+
+    <!-- Opções -->
+    <div id="q2-options" class="options space-y-3">
+      <!-- Opção 1 -->
+      <button class="option-theme group text-left cursor-pointer border relative overflow-hidden rounded-md w-full">
+        <div class="w-full h-full p-4 gap-3 flex items-start bg-white
+                    border border-[#CFE8B3] rounded-md" style="min-height:64px;">
+          <div class="mt-1">
+            <!-- círculo SEM fundo; só o check.svg aparece quando ativo -->
+            <div class="option-icon-select relative h-5 w-5 rounded-full
+                        bg-white border-2 border-[#CFE8B3]
+                        group-[.active]:bg-white group-[.active]:border-[#CFE8B3]">
+              <img src="/assets/check.svg" alt=""
+                   class="absolute inset-0 m-auto w-3.5 h-3.5
+                          opacity-0 group-[.active]:opacity-100
+                          pointer-events-none select-none">
+            </div>
+          </div>
+          <div class="flex-1 pl-3">
+            <div class="text-[18px] md:text-[20px] font-semibold">Sí, como poco pero NO bajo de peso</div>
+            <div class="text-[13px] md:text-[14px] italic text-[#2a2a2a] opacity-80">(Mi cuerpo parece no responder)</div>
+          </div>
+        </div>
+        <input type="radio" name="q2" value="q2_a" class="sr-only">
+      </button>
+
+      <!-- Opção 2 -->
+      <button class="option-theme group text-left cursor-pointer border relative overflow-hidden rounded-md w-full">
+        <div class="w-full h-full p-4 gap-3 flex items-start bg-white
+                    border border-[#CFE8B3] rounded-md" style="min-height:64px;">
+          <div class="mt-1">
+            <div class="option-icon-select relative h-5 w-5 rounded-full
+                        bg-white border-2 border-[#CFE8B3]
+                        group-[.active]:bg-white group-[.active]:border-[#CFE8B3]">
+              <img src="/assets/check.svg" alt=""
+                   class="absolute inset-0 m-auto w-3.5 h-3.5
+                          opacity-0 group-[.active]:opacity-100
+                          pointer-events-none select-none">
+            </div>
+          </div>
+          <div class="flex-1 pl-3">
+            <div class="text-[18px] md:text-[20px] font-semibold">Sí, pierdo peso pero lo recupero</div>
+            <div class="text-[13px] md:text-[14px] italic text-[#2a2a2a] opacity-80">(Efecto rebote constante)</div>
+          </div>
+        </div>
+        <input type="radio" name="q2" value="q2_b" class="sr-only">
+      </button>
+    </div>
+
+    <!-- CTA -->
+    <button id="q2-next"
+            class="mt-4 w-full bg-[#4b7f1f] hover:bg-[#3e6c1b] text-white font-semibold text-[16px] md:text-[18px] py-3 md:py-4 rounded-md shadow disabled:opacity-50 disabled:cursor-not-allowed">
+      Continuar
+    </button>
+  </main>
+
+  <script src="/app.js" defer></script>
+  <script>
+    // seleção única + habilitar CTA
+    (function () {
+      const box = document.getElementById('q2-options');
+      const cta = document.getElementById('q2-next');
+      const buttons = Array.from(box.querySelectorAll('.option-theme'));
+      let selected = null;
+      cta.disabled = true;
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const radio = btn.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+          selected = radio ? radio.value : null;
+          cta.disabled = !selected;
+        });
+      });
+
+      cta.addEventListener('click', () => {
+        if (!selected) return;
+        // salva resposta (se quiser usar depois)
+        try {
+          const store = JSON.parse(localStorage.getItem('quiz_answers') || '{}');
+          store.q2 = selected;
+          localStorage.setItem('quiz_answers', JSON.stringify(store));
+        } catch (_) {}
+        // TODO: trocar para a próxima rota/página quando existir
+        // window.location.href = '/parte3.html';
+      });
+    })();
+  </script>
+</body>
+</html>
