@@ -25,52 +25,75 @@ if (!localStorage.getItem('quiz.timestampStart')) {
 }
 
 // Seletores
-const optionsEl = document.querySelector('.options');
-const cards = Array.from(document.querySelectorAll('.card'));
+const optionGroups = Array.from(document.querySelectorAll('.options'));
+const primaryGroup = optionGroups[0] || null;
+const primaryButtons = primaryGroup ? Array.from(primaryGroup.querySelectorAll('.option-theme')) : [];
 const cta = document.getElementById('cta');
 const toast = document.getElementById('toast');
 
 // Restaura seleção anterior (se existir)
-if (answers.q1) {
-  const selected = cards.find(c => c.dataset.value === answers.q1);
-  if (selected) setSelected(selected, /*silent*/ true);
+if (answers.q1 && primaryButtons.length) {
+  const selected = primaryButtons.find(btn => btn.dataset.value === answers.q1);
+  if (selected) {
+    toggleActive(primaryButtons, selected);
+    applyPrimarySelection(selected, { silent: true });
+  }
 }
 
-// Clique via mouse/teclado
-optionsEl.addEventListener('click', (e) => {
-  const btn = e.target.closest('.card');
-  if (!btn) return;
-  setSelected(btn);
-});
+optionGroups.forEach(group => {
+  const buttons = group === primaryGroup
+    ? primaryButtons
+    : Array.from(group.querySelectorAll('.option-theme'));
 
-optionsEl.addEventListener('keydown', (e) => {
-  const current = document.activeElement.closest('.card');
-  if (!current) return;
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleActive(buttons, btn);
 
-  const idx = cards.indexOf(current);
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-    e.preventDefault();
-    const next = cards[Math.min(cards.length - 1, idx + 1)];
-    next.focus();
-  }
-  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-    e.preventDefault();
-    const prev = cards[Math.max(0, idx - 1)];
-    prev.focus();
-  }
-  if (e.key === ' ' || e.key === 'Enter') {
-    e.preventDefault();
-    setSelected(current);
-  }
-});
+      if (group === primaryGroup) {
+        applyPrimarySelection(btn);
+      }
+    });
 
-function setSelected(btn, silent = false) {
-  cards.forEach(c => {
-    c.setAttribute('aria-checked', 'false');
-    c.classList.remove('active');
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
   });
-  btn.setAttribute('aria-checked', 'true');
-  btn.classList.add('active');
+
+  group.addEventListener('keydown', (e) => {
+    const current = document.activeElement.closest('.option-theme');
+    if (!current || !group.contains(current)) return;
+
+    const idx = buttons.indexOf(current);
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      const next = buttons[Math.min(buttons.length - 1, idx + 1)];
+      if (next) next.focus();
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prev = buttons[Math.max(0, idx - 1)];
+      if (prev) prev.focus();
+    }
+  });
+});
+
+function toggleActive(buttons, activeButton) {
+  buttons.forEach(button => {
+    button.classList.remove('active');
+    button.setAttribute('aria-checked', 'false');
+  });
+
+  activeButton.classList.add('active');
+  activeButton.setAttribute('aria-checked', 'true');
+
+  const radio = activeButton.querySelector('input[type="radio"]');
+  if (radio) radio.checked = true;
+}
+
+function applyPrimarySelection(btn, { silent = false } = {}) {
   cta.disabled = false;
 
   answers.q1 = btn.dataset.value;
