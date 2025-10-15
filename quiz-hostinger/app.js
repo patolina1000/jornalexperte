@@ -65,8 +65,12 @@ optionsEl.addEventListener('keydown', (e) => {
 });
 
 function setSelected(btn, silent = false) {
-  cards.forEach(c => c.setAttribute('aria-checked', 'false'));
+  cards.forEach(c => {
+    c.setAttribute('aria-checked', 'false');
+    c.classList.remove('active');
+  });
   btn.setAttribute('aria-checked', 'true');
+  btn.classList.add('active');
   cta.disabled = false;
 
   answers.q1 = btn.dataset.value;

@@ -24,32 +24,68 @@
     <div class="options" role="radiogroup" aria-labelledby="q1-label">
       <span id="q1-label" class="sr-only">Selecciona una opción</span>
 
-      <button class="card" data-value="si_aqui" role="radio" aria-checked="false">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="card-text">
-          <strong>Sí, por eso estoy aquí</strong>
-          <small>Quiero saber si funciona para mí</small>
-        </span>
+      <button class="card group text-left cursor-pointer option-theme border shadow-none option-background-contrast relative overflow-hidden rounded-md" data-value="si_aqui" role="radio" aria-checked="false">
+        <div class="option-wrap flex h-full flex-row">
+          <div class="option-inner w-full h-full p-4 gap-3 flex justify-between items-center" style="min-height:64px;">
+            <div class="py-1 self-center">
+              <div class="option-icon-select h-5 w-5 rounded-full border-2 border-[#5a7d2b]">
+                <img src="./assets/check.svg" alt="" class="option-icon-img w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div class="flex-1 card-text">
+              <div class="option-title text-[18px] md:text-[20px] font-semibold text-[#1a1a1a]">
+                Sí, por eso estoy aquí
+              </div>
+              <div class="option-sub text-[13px] md:text-[14px] italic text-[#2a2a2a] opacity-80">
+                (Quiero saber si funciona para mí)
+              </div>
+            </div>
+          </div>
+        </div>
       </button>
 
-      <button class="card" data-value="no_interesa" role="radio" aria-checked="false">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="card-text">
-          <strong>NO, pero me interesa conocerla</strong>
-          <small>Quiero ver si es real</small>
-        </span>
+      <button class="card group text-left cursor-pointer option-theme border shadow-none option-background-contrast relative overflow-hidden rounded-md" data-value="no_interesa" role="radio" aria-checked="false">
+        <div class="option-wrap flex h-full flex-row">
+          <div class="option-inner w-full h-full p-4 gap-3 flex justify-between items-center" style="min-height:64px;">
+            <div class="py-1 self-center">
+              <div class="option-icon-select h-5 w-5 rounded-full border-2 border-[#5a7d2b]">
+                <img src="./assets/check.svg" alt="" class="option-icon-img w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div class="flex-1 card-text">
+              <div class="option-title text-[18px] md:text-[20px] font-semibold text-[#1a1a1a]">
+                NO, pero me interesa conocerla
+              </div>
+              <div class="option-sub text-[13px] md:text-[14px] italic text-[#2a2a2a] opacity-80">
+                (Quiero ver si es real)
+              </div>
+            </div>
+          </div>
+        </div>
       </button>
 
-      <button class="card" data-value="vi_dudas" role="radio" aria-checked="false">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="card-text">
-          <strong>Vi algo pero no sé si es verdad</strong>
-          <small>Necesito más información</small>
-        </span>
+      <button class="card group text-left cursor-pointer option-theme border shadow-none option-background-contrast relative overflow-hidden rounded-md" data-value="vi_dudas" role="radio" aria-checked="false">
+        <div class="option-wrap flex h-full flex-row">
+          <div class="option-inner w-full h-full p-4 gap-3 flex justify-between items-center" style="min-height:64px;">
+            <div class="py-1 self-center">
+              <div class="option-icon-select h-5 w-5 rounded-full border-2 border-[#5a7d2b]">
+                <img src="./assets/check.svg" alt="" class="option-icon-img w-3.5 h-3.5" />
+              </div>
+            </div>
+            <div class="flex-1 card-text">
+              <div class="option-title text-[18px] md:text-[20px] font-semibold text-[#1a1a1a]">
+                Vi algo pero no sé si es verdad
+              </div>
+              <div class="option-sub text-[13px] md:text-[14px] italic text-[#2a2a2a] opacity-80">
+                (Necesito más información)
+              </div>
+            </div>
+          </div>
+        </div>
       </button>
     </div>
 
-    <button id="cta" class="cta" disabled>Deseo la receta</button>
+    <button id="cta" class="cta w-full bg-[#4b7f1f] hover:bg-[#3e6c1b] text-white font-semibold text-[16px] md:text-[18px] py-3 md:py-4 rounded-md shadow" disabled>Deseo la receta</button>
 
     <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   </main>
