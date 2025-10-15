@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Receta 6–10 KG en 30 días — Quiz</title>
+  <meta name="description" content="Quiz rápido para saber si esta receta puede funcionar para ti." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="progress"><div class="progress-bar" style="width:25%"></div></div>
+
+  <main class="container" role="main">
+    <figure class="hero">
+      <img src="./assets/hero.png"
+           alt="Resultados de 6–10 kg en 30 días"
+           onerror="this.closest('.hero').classList.add('fallback'); this.remove()" />
+    </figure>
+
+    <h1 class="question-title">
+      ¿Ya viste los videos virales de mujeres perdiendo 6–10 kilos en 30 días con esta receta?
+    </h1>
+
+    <div class="options" role="radiogroup" aria-labelledby="q1-label">
+      <span id="q1-label" class="sr-only">Selecciona una opción</span>
+
+      <button class="card" data-value="si_aqui" role="radio" aria-checked="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="card-text">
+          <strong>Sí, por eso estoy aquí</strong>
+          <small>Quiero saber si funciona para mí</small>
+        </span>
+      </button>
+
+      <button class="card" data-value="no_interesa" role="radio" aria-checked="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="card-text">
+          <strong>NO, pero me interesa conocerla</strong>
+          <small>Quiero ver si es real</small>
+        </span>
+      </button>
+
+      <button class="card" data-value="vi_dudas" role="radio" aria-checked="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="card-text">
+          <strong>Vi algo pero no sé si es verdad</strong>
+          <small>Necesito más información</small>
+        </span>
+      </button>
+    </div>
+
+    <button id="cta" class="cta" disabled>Deseo la receta</button>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
