@@ -98,7 +98,8 @@ body{
   width:20px;
   height:20px;
   border-radius:50%;
-  border:2px solid var(--border);
+  border:2px solid #CFE8B3;
+  background:#fff;
   position:relative;
   display:flex;
   align-items:center;
@@ -109,20 +110,28 @@ body{
 .option-icon-select img{
   width:14px;
   height:14px;
+  position:absolute;
+  inset:0;
+  margin:auto;
   opacity:0;
+  pointer-events:none;
+  user-select:none;
   transition:opacity .15s ease;
 }
 
 .card[aria-checked="true"] .option-icon-select,
 .card.active .option-icon-select{
-  background:#5a7d2b;
-  border-color:#5a7d2b;
+  background:#fff;
+  border-color:#CFE8B3;
+}
+
+.option-theme.active .option-icon-select{
+  background-color:#fff !important;
 }
 
 .card[aria-checked="true"] .option-icon-select img,
 .card.active .option-icon-select img{
   opacity:1;
-  filter:invert(100%);
 }
 
 .option-title{
